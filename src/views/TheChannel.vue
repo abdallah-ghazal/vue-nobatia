@@ -1,9 +1,9 @@
 <template>
-    <div class="catogory">
+    <div class="channel">
 <div class="head-content px-3 pt-0 bg-light">
     <div class="row justify-content-between align-items-center  py-3">
         <div class="col-auto">
-            <div class="category-title my-0 py-0">{{catogores[0].name}}</div>
+            <div v-if="channels.name" class="category-title my-0 py-0">{{channels.name}}</div>
         </div>
       
     </div>
@@ -12,24 +12,25 @@
 <div class="loop-news px-4 py-4">
   
     <div class="row g-4">
-        <div v-for="chanle in catogores[0].systemChannel" :key="chanle" class="col-lg-4 col-md-6">
+        <div v-if="!channels.systemNews">
+        لا يوجد اخبار
+        </div>
+        <div v-for="chanle in channels.systemNews" :key="chanle" class="col-lg-4 col-md-6">
             <div class="item-news">
-                <a>
+                <router-link :to="'/news-dt/'+chanle.uuid" >
                     <div class="news-slide small-slid">
-                          <img v-if="!chanle.image_url" src="@/assets/02.svg" alt="">
-                        
-
-                        <img v-else :src="chanle.image_url" alt="">
+                        <img v-if="!chanle.file" src="https://newsapp.be875981ca9416725.temporary.link/images/Splash.jpg" alt="">
+                        <img v-else :src="chanle.file" alt="">
                         <div class="content-news-slider">
                             <div class="date-cat-top">
                                 <span class="date-slide d-inline-flex align-items-center">
-                                    <span class="mx-1 favoret">
+                                    <span class="mx-1 favoret" @click="addToFavorite(chanle.uuid)">
                                         <svg xmlns="http://www.w3.org/2000/svg" width="14.731" height="14.099" viewBox="0 0 14.731 14.099">
                                             <path id="Icon_awesome-star" data-name="Icon awesome-star" d="M7.376.49l-1.8,3.645-4.023.586a.882.882,0,0,0-.487,1.5l2.91,2.836L3.29,13.067A.881.881,0,0,0,4.567,14l3.6-1.892L11.765,14a.881.881,0,0,0,1.278-.928l-.688-4.006,2.91-2.836a.882.882,0,0,0-.487-1.5l-4.023-.586L8.956.49A.882.882,0,0,0,7.376.49Z" transform="translate(-0.801 0)" fill="#fff"/>
                                           </svg>
                                           
                                     </span>
-                                    <span class="mx-1 chanel" @click="addCatToFllow(chanle.uuid)">
+                                    <span class="mx-1 chanel">
                                         <span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
                                             <g id="Group_39" data-name="Group 39" transform="translate(-1081 -293)">
                                               <circle id="Ellipse_3" data-name="Ellipse 3" cx="10" cy="10" r="10" transform="translate(1081 293)" fill="#fff" opacity="0.14"/>
@@ -40,23 +41,24 @@
                                             </g>
                                           </svg>
                                           </span>
-                                          <span>الجزيرة</span>
+                                          <span>{{channels.name}}</span>
                                     </span>
                                      </span>
                                 </div>
                             </div>
                         </div>
-                        <div class="title-news mt-2"><router-link :to="'/channel/'+chanle.uuid">{{chanle.name}}</router-link></div>
+                        <div class="title-news mt-2">{{ chanle.title }}</div>
                         <div class="date-news my-1 py-1"><span><svg xmlns="http://www.w3.org/2000/svg" width="11.175" height="12.417" viewBox="0 0 11.175 12.417">
                             <path id="Icon_material-date-range" data-name="Icon material-date-range" d="M6.225,7.254H4.983V8.5H6.225Zm2.483,0H7.467V8.5H8.708Zm2.483,0H9.95V8.5h1.242Zm1.242-4.346h-.621V1.667H10.571V2.908H5.6V1.667H4.362V2.908H3.742A1.236,1.236,0,0,0,2.506,4.15L2.5,12.842a1.241,1.241,0,0,0,1.242,1.242h8.692a1.245,1.245,0,0,0,1.242-1.242V4.15A1.245,1.245,0,0,0,12.433,2.908Zm0,9.933H3.742V6.012h8.692v6.829Z" transform="translate(-2.5 -1.667)" fill="#6a6a6a"/>
                           </svg>
-                          </span>    <span>12-12-2022</span></div>
+                          </span>    <span>{{chanle.date }}</span></div>
                         
-                </a>
+                </router-link>
                 
             </div>
         </div>
-    
+
+
     </div>
 </div>
     </div>
@@ -64,98 +66,59 @@
 
 
 <script>
+import { createToaster } from "@meforma/vue-toaster";
+const toaster = createToaster({ /* options */ });
 import axios from 'axios';
 export default {
-  name: "TheCatogory",
+  name: "TheChannel",
   components: {
    
   },
-    data(){
+    data: function(){
       return{
-          catogores:[],
-          cat:null,
-          subsicrips:[],
+          channels:[],
           
-            
       }
   },
-    created () {
-        
-
+  created () {
       this.$watch(
       () => this.$route.params,
       () => {
         this.getData(this.$route.params.id)
       },
-       { immediate: true },
+  
+      { immediate: true }
     );
 
 
     }, 
-    mounted(){
-   
-
-   
-    },  
     methods:{
-
-        // getData(link){
-        // this.token = this.$store.state.token;
-        // axios.get(`category/${link}/channel` , { headers: {"Authorization" : `Bearer ${this.$store.state.token}`} })
-        // .then(res => {
-        // this.catogores = res.data.data ;
-        // this.cat = res.data.data[0].category_name;
-
-
-
-        // })
-        // },
-
-              getData(link){
-                let cat = [{'uuid' : link}]
-        axios.post(`guest/channels_guest` , {'categories': cat})
+        getData(link){
+        axios.get(`guest/system_channels/${link}` )
         .then(res => {
-        this.catogores = res.data.data ;
-        this.cat = res.data.data[0].category_name;
+        this.channels = res.data.data ;
 
 
-
+       
         })
-        },
+        }
+        ,
 
-           addCatToFllow(item){
-
-             console.log('item: '+item);
-
-
-
-    //  for (const chan of this.catogores) {
-    //     if(chan.user_add ){
-    //         this.subsicrips.push({
-    //           uuid:  chan.uuid
-    //         })
-    //     }
-    // }
-      this.subsicrips.push({
-              uuid:  item
-            })
-    
-             let channelss =  this.subsicrips
-             console.log('channelss: '+channelss);
-            axios.post(`user_channels` , { channels : channelss },{ 
+              addToFavorite(item){
+            axios.post(`add_user_fovarite_news` , { uuid : item},{ 
                
                 headers: {"Authorization" : `Bearer ${this.$store.state.token}`} 
                 })
             .then(res => {
             console.log(res.data.message);
-        
+                  toaster.success(res.data.message);
 
             }).catch(function(error){
                  console.log(error.res)
             })
                     },
 
-    }
+    },
 
 
 };

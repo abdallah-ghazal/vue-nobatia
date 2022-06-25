@@ -1,9 +1,9 @@
 <template>
-    <div class="catogory">
+    <div class="favorite">
 <div class="head-content px-3 pt-0 bg-light">
     <div class="row justify-content-between align-items-center  py-3">
         <div class="col-auto">
-            <div class="category-title my-0 py-0">القراءة لاحقا</div>
+            <div class="category-title my-0 py-0" @click="getData()">المفضلة</div>
         </div>
       
     </div>
@@ -11,7 +11,7 @@
 </div>
 <div class="loop-news px-4 py-4">
   
-    <div class="row g-4">
+    <div class="row g-4" v-if="readlist[0]">
         <div v-for="news in readlist" :key="news.uuid" class="col-lg-4 col-md-6">
             <div class="item-news">
                 <router-link :to="'/news-dt/'+news.uuid">
@@ -21,13 +21,12 @@
                         <div class="content-news-slider">
                             <div class="date-cat-top">
                                 <span class="date-slide d-inline-flex align-items-center">
-                                    <span class="mx-1 favoret" @click="addToFavorite(news.uuid)">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14.731" height="14.099" viewBox="0 0 14.731 14.099">
-                                            <path id="Icon_awesome-star" data-name="Icon awesome-star" d="M7.376.49l-1.8,3.645-4.023.586a.882.882,0,0,0-.487,1.5l2.91,2.836L3.29,13.067A.881.881,0,0,0,4.567,14l3.6-1.892L11.765,14a.881.881,0,0,0,1.278-.928l-.688-4.006,2.91-2.836a.882.882,0,0,0-.487-1.5l-4.023-.586L8.956.49A.882.882,0,0,0,7.376.49Z" transform="translate(-0.801 0)" fill="#fff"/>
-                                          </svg>
-                                          
+                                   
+                                    <span class="mx-1 favoret  bg-danger" @click="removeItem(news.uuid)">
+                                          <svg width="14" height="14" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!-- Font Awesome Pro 5.15.4 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) --><path fill="#fff" d="M32 464a48 48 0 0 0 48 48h288a48 48 0 0 0 48-48V128H32zm272-256a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zm-96 0a16 16 0 0 1 32 0v224a16 16 0 0 1-32 0zM432 32H312l-9.4-18.7A24 24 0 0 0 281.1 0H166.8a23.72 23.72 0 0 0-21.4 13.3L136 32H16A16 16 0 0 0 0 48v32a16 16 0 0 0 16 16h416a16 16 0 0 0 16-16V48a16 16 0 0 0-16-16z"/></svg>
+     
                                     </span>
-                              
+                                 
                                      </span>
                                 </div>
                             </div>
@@ -44,6 +43,9 @@
         </div>
   
     </div>
+    <div v-else>
+        لا يوجد اخبار في المفضلة
+    </div>
 </div>
     </div>
 </template>
@@ -52,9 +54,10 @@
 <script>
 import { createToaster } from "@meforma/vue-toaster";
 const toaster = createToaster({ /* options */ });
+
 import axios from 'axios';
 export default {
-  name: "TheReadlater",
+  name: "TheFavorite",
   components: {
    
   },
@@ -64,25 +67,33 @@ export default {
     }
   },
     mounted () {
-axios.get(`system_news_most_read` , { headers: {"Authorization" : `Bearer ${this.$store.state.token}`} })
-.then(res => {
-this.readlist = res.data.data ;
-})
+
     }, 
+    created(){
+this.getData();
+    },
     methods:{
-              addToFavorite(item){
-            axios.post(`add_user_fovarite_news` , { uuid : item},{ 
-               
-                headers: {"Authorization" : `Bearer ${this.$store.state.token}`} 
-                })
-            .then(res => {
-            console.log(res.data.message);
-            toaster.success(res.data.message);
-            }).catch(function(error){
-                 console.log(error.res)
-            })
-                    },
-   
+        removeItem(item){
+axios.delete(`delete_fovarite_news/${item}` , { headers: {"Authorization" : `Bearer ${this.$store.state.token}`} })
+ .then(response => {
+                 console.log(response.data.message);
+                  toaster.success(response.data.message);
+                 this.getData() ;
+             })
+             .catch(function (error) {
+                console.log(error.response);
+                 toaster.error(error.response);
+             })
+        },
+    getData(){
+        
+        axios.get(`user_news_fovarite` , { headers: {"Authorization" : `Bearer ${this.$store.state.token}`} })
+        .then(res => {
+        this.readlist = res.data.data ;
+        }).catch(function (error) {
+                console.log(error.res)
+             })
+    }
     }
 };
 </script>

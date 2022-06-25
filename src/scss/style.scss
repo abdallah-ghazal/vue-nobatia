@@ -705,6 +705,13 @@ a{
   align-items: center;
   border-radius: 50%;
   border: 2px solid $color;
+  &.fovariteTrue{
+    svg{
+      path{
+        fill:$color;
+      }
+    }
+  }
 }
 .chanel{
   display: inline-flex;
@@ -766,3 +773,92 @@ a{
 .item-news.bg-light{
   background-color: #F3F2F2 !important;
 }
+.pagination{
+  align-items: center;
+  justify-content: center;
+}
+.page-link{
+  color: $color;
+  border: 1px solid;
+  margin: 5px 10px 0 0px;
+  border-radius: 50% !important;
+  cursor: pointer;
+  
+}
+.page-item:first-child .page-link{
+
+}
+
+
+
+// loading item
+@keyframes placeHolderShimmer {
+  0% {
+  background-position: -800px 0
+  }
+  100% {
+  background-position: 800px 0
+  }
+  }
+.item-loading{
+  background: #eeeeee;
+  position: relative;
+  border-radius: 10px;
+  height: 200px;
+  margin-top: 15px;
+  
+   animation-duration: 2s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-name: placeHolderShimmer;
+  animation-timing-function: linear;
+  background-color: #f6f7f8;
+  background: linear-gradient(to right, #eeeeee 8%, #bbbbbb 18%, #eeeeee 33%);
+  background-size: 800px 104px;
+  &.larg{
+    height: 200px;
+  }
+  &.small-90{
+    height: 90px;
+    .title-loading , .sub-title-loading{
+      display: none;
+    }
+  }
+  &.big-larg{
+    height: 500px;
+  }
+  }
+  .item-loading .img-loading{
+    top: 19px;
+    left: 15px;
+    margin: auto;
+    width: 40px;
+    height: 25px;
+    display: block;
+    background: #ccc;
+    border-radius: 5px;
+    position: absolute;
+    background: #eeeeee;
+  }
+  .item-loading .content-loading{
+      text-align: center;
+  padding-top:60px;
+  
+  }
+  .item-loading .title-loading{
+  height: 15px;
+  width: 75%;
+  margin: 15px;
+  background: #fff;
+  margin-top: 70px;
+  }
+  .item-loading .sub-title-loading{
+   height: 15px;
+  width: 50%;
+  margin: 15px;
+  background: #fff;
+      position: relative;
+  }
+
+  // end loading item
+  

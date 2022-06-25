@@ -12,11 +12,12 @@
 <div class="loop-news px-4 py-4">
   
     <div class="row g-4">
-        <div class="col-lg-4 col-md-6">
+        <div v-for="news in result" :key="news" class="col-lg-4 col-md-6">
             <div class="item-news">
-                <a href="#">
+                <router-link :to="'/news-dt/'+news.uuid">
                     <div class="news-slide small-slid">
-                        <img src="https://panel.almarshalnews.com/storage/media/107/conversions/DHssQCzXPC8CG7ki5Pq2RwE4wKkmT9-metaSU1HLTIwMjEwNjAxLVdBMDAxNy5qcGc=--thumb.jpg" alt="">
+                        <img v-if="!news.thumbnail" src="@/assets/02.svg" alt="">
+                        <img v-else :src="news.thumbnail" alt="">
                         <div class="content-news-slider">
                             <div class="date-cat-top">
                                 <span class="date-slide d-inline-flex align-items-center">
@@ -37,19 +38,18 @@
                                             </g>
                                           </svg>
                                           </span>
-                                          <span>الجزيرة</span>
+                                          <span>{{news.category_data.name}}</span>
                                     </span>
                                      </span>
                                 </div>
                             </div>
                         </div>
-                        <div class="title-news mt-2"><a href="#">المخابز تلوح بفرض زيادة جديدة على أسعار   الخبز</a></div>
+                        <div class="title-news mt-2"><a href="#">{{ news.title }}</a></div>
                         <div class="date-news my-1 py-1"><span><svg xmlns="http://www.w3.org/2000/svg" width="11.175" height="12.417" viewBox="0 0 11.175 12.417">
                             <path id="Icon_material-date-range" data-name="Icon material-date-range" d="M6.225,7.254H4.983V8.5H6.225Zm2.483,0H7.467V8.5H8.708Zm2.483,0H9.95V8.5h1.242Zm1.242-4.346h-.621V1.667H10.571V2.908H5.6V1.667H4.362V2.908H3.742A1.236,1.236,0,0,0,2.506,4.15L2.5,12.842a1.241,1.241,0,0,0,1.242,1.242h8.692a1.245,1.245,0,0,0,1.242-1.242V4.15A1.245,1.245,0,0,0,12.433,2.908Zm0,9.933H3.742V6.012h8.692v6.829Z" transform="translate(-2.5 -1.667)" fill="#6a6a6a"/>
                           </svg>
-                          </span>    <span>12-12-2022</span></div>
-                        <div class="some-text fs-13"> حذر عضو تجمع أصحاب المخابز بولاية الخرطوم عصام عكاشة من أن الارتفاع في  </div>
-                </a>
+                          </span>    <span>{{news.date}}</span></div>
+                </router-link>
                 
             </div>
         </div>
@@ -66,7 +66,7 @@ import axios from "axios";
 export default {
   name: "TheSearch",
   components: {
-   
+    
   },
      data: function(){
         return {
@@ -81,7 +81,7 @@ export default {
     },
     methods: {          
         getDataSearch(){
-            axios.get(`https://newsapp.be875981ca9416725.temporary.link/api/v1/guest/news_search_guest?search=${this.searchData}`).then(res => this.result = res.data.data)
+            axios.get(`guest/news_search_guest?search=${this.searchData}`).then(res => this.result = res.data.data)
         }
     }
 };

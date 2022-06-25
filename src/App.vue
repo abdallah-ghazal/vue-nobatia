@@ -10,16 +10,39 @@
 </template>
 
 <script>
+import { mapActions  } from "vuex";
 import NaveBar from '@/components/NaveBar.vue';
 export default {
   components:{
       NaveBar,
-  }
+  },
+    data: function(){
+    return {
+      token:null,
+    }
+  },
+   mounted () {
+  this.token = this.$store.state.token;
+  },
+
+    
+     created() {
+        if(this.token == null)
+        {
+      //  this.$router.push("/login");
+        }
+         this.fetchAccessToken();
+    },
+    methods: {
+   ...mapActions([
+      'fetchAccessToken'
+    ]),
+    }
 }
 </script>
 <style lang="scss">
     :root {
-            --mincolor:#F9A730;
+            --mincolor:#E8623D;
             --darkcolor:#7168D8;
             --greencolor:#72d962;
             --blowcolor:#7168D8;

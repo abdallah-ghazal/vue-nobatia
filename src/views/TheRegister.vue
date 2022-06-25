@@ -31,7 +31,7 @@
                   <div>
                       <button type="submit" class=" btn btn-primary br-5-i w-100 text-center">تسجيل</button>
                   </div>
-                   <p v-if="showError" id="error">Username already exists</p>
+                   <p v-if="showError" id="error">{{messageError}}</p>
             </div>
             </form>
 
@@ -57,19 +57,29 @@ export default {
         email: "",
         password: "",
       },
-      showError: false
+      showError: false,
+      messageError : "تاكد من عملية الادخال"
     };
   },
   methods: {
     ...mapActions(["register"]),
     async submit() {
-      try {
+      if(this.form.name == '' || this.form.email == '' || this.form.password == '' || this.form.password.length <= 8){
+        this.showError = true ;
+        this.messageError = "ارجو ادخال اسم المستخدم" ;
+      }
+  
+      else{
+ try {
         await this.register(this.form);
-        this.$router.push("/login");
+       
         this.showError = false
       } catch (error) {
         this.showError = true
       }
+      }
+
+     
     },
   },
 

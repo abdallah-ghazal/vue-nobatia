@@ -14,20 +14,24 @@
     <div class="row my-3 justify-content-center">
         <div class="col-lg-7">
             <div class="text-center fs-18 mb-3">يمكنك تسجيل الدخول من خلال تعبئة المعلومات المطلوبة</div>
-            <div class="bg-light p-4">
+            <form action="" @submit.prevent="submit">
+                <div class="bg-light p-4">
                 <div class="mb-4">
                     <label for="exampleFormControlInput1" class="form-label">البريد الإلكتروني</label>
-                    <input type="email" class="form-control" id="exampleFormControlInput1" >
+                    <input type="email" class="form-control" v-model="form.email" id="exampleFormControlInput1" >
                   </div>
                   <div class="mb-4">
                     <label for="passworddiv" class="form-label">كلمة المرور</label>
-                    <input type="email" class="form-control" id="passworddiv" placeholder="">
+                    <input type="password" class="form-control" v-model="form.password" id="passworddiv" placeholder="">
                   </div>
                   <div>
                       <button class=" btn btn-primary br-5-i w-100 text-center">دخول</button>
                   </div>
             </div>
+            </form>
+            <p v-if="showError" id="error">اسم المستخدم أو كلمة المرور غير صحيحة</p>
             <div class="text-center">لا أمتلك حساب <router-link to="/register">تسجيل</router-link></div>
+
         </div>
     </div>
     
@@ -36,10 +40,66 @@
 </template>
 
 <script>
+// import { createToaster } from "@meforma/vue-toaster";
+// const toaster = createToaster({ /* options */ });
+
+import { mapActions } from "vuex";
 export default {
   name: "TheLogin",
   components: {
    
   },
+  data() {
+    return {
+      form: {
+        email: "",
+        password: "",
+      },
+      showError: false,
+      catogory : [] ,
+     token:null,
+     datanew : this.$store.state.items.data , 
+    };
+  },
+mounted () {
+   this.$store.dispatch('loadItems')
+//   this.token = this.$store.state.token;
+//   if(this.token != null)
+//   {
+//   toaster.success("تم تسجيل دخولك بنجاح");
+//  // this.$router.push("/");
+//   }
+
+    }, 
+     created() {
+         
+    },
+computed : {
+      isLoggedIn(){ return this.$store.getters.isAuthenticated},
+    },
+  methods: {
+
+    // ...mapActions(["LogIn"]),
+    // async submit() {
+    //   const User = new FormData();
+    //   User.append("email", this.form.email);
+    //   User.append("password", this.form.password);
+    //   try {
+    //       await this.LogIn(User);
+    //       this.$router.push("/");
+    //       this.showError = false
+    //   } catch (error) {
+    //     this.showError = true
+    //   }
+    // },
+  ...mapActions(["singIn" , "loadItems"]),
+  submit(){
+      this.singIn(this.form)
+      this.loadItems()
+      //  this.isLoggedIn();
+       
+  }
+  },
+
 };
 </script>
