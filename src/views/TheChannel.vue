@@ -24,12 +24,7 @@
                         <div class="content-news-slider">
                             <div class="date-cat-top">
                                 <span class="date-slide d-inline-flex align-items-center">
-                                    <span class="mx-1 favoret" @click="addToFavorite(chanle.uuid)">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14.731" height="14.099" viewBox="0 0 14.731 14.099">
-                                            <path id="Icon_awesome-star" data-name="Icon awesome-star" d="M7.376.49l-1.8,3.645-4.023.586a.882.882,0,0,0-.487,1.5l2.91,2.836L3.29,13.067A.881.881,0,0,0,4.567,14l3.6-1.892L11.765,14a.881.881,0,0,0,1.278-.928l-.688-4.006,2.91-2.836a.882.882,0,0,0-.487-1.5l-4.023-.586L8.956.49A.882.882,0,0,0,7.376.49Z" transform="translate(-0.801 0)" fill="#fff"/>
-                                          </svg>
-                                          
-                                    </span>
+                                 
                                     <span class="mx-1 chanel">
                                         <span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
                                             <g id="Group_39" data-name="Group 39" transform="translate(-1081 -293)">
@@ -66,8 +61,7 @@
 
 
 <script>
-import { createToaster } from "@meforma/vue-toaster";
-const toaster = createToaster({ /* options */ });
+
 import axios from 'axios';
 export default {
   name: "TheChannel",
@@ -104,19 +98,7 @@ export default {
         }
         ,
 
-              addToFavorite(item){
-            axios.post(`add_user_fovarite_news` , { uuid : item},{ 
-               
-                headers: {"Authorization" : `Bearer ${this.$store.state.token}`} 
-                })
-            .then(res => {
-            console.log(res.data.message);
-                  toaster.success(res.data.message);
 
-            }).catch(function(error){
-                 console.log(error.res)
-            })
-                    },
 
     },
 

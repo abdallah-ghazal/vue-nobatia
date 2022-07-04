@@ -862,3 +862,43 @@ a{
 
   // end loading item
   
+  @media screen and (max-width:780px) {
+    .pagination{
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      li{
+        flex-shrink: 0;
+        width: 20%;
+        max-width: 100%;
+        a{
+          border-radius: 5px !important;
+          text-align: center;
+        }
+      }
+    }
+  }
+  @media screen and (max-width:480px) {
+    .pagination{
+      padding: 0;
+      display: flex;
+      flex-wrap: wrap;
+      li{
+        flex-shrink: 0;
+        width: 30%;
+        max-width: 100%;
+        a{
+          border-radius: 5px !important;
+          text-align: center;
+        }
+      }
+    }
+  }
+
+  .favoret-icon{
+    &.no{
+      svg path{
+        fill: $color;
+      }
+    }
+  }
