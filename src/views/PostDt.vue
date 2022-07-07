@@ -34,14 +34,14 @@
             <div class="col-auto">
                 <div class="date-cat-top mt-2">
                     <span class="date-slide d-inline-flex align-items-center">
-                        <span class="me-1 favoret"  @click="addToReadLater(newsDt.uuid)">
+                        <span class="me-1 favoret"   @click="addToReadLater(newsDt.uuid)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14.099" height="14.099" viewBox="0 0 14.099 14.099">
                                 <path id="Icon_awesome-book-reader" data-name="Icon awesome-book-reader" d="M9.693,2.644A2.644,2.644,0,1,0,7.05,5.287,2.644,2.644,0,0,0,9.693,2.644Zm-3.261,4A13.509,13.509,0,0,0,.821,5.289.762.762,0,0,0,0,6.034V12.17a.757.757,0,0,0,.729.745,14.813,14.813,0,0,1,5.316,1.141.383.383,0,0,0,.564-.327V6.955a.366.366,0,0,0-.177-.316Zm6.846-1.351A13.5,13.5,0,0,0,7.667,6.639a.373.373,0,0,0-.177.32v6.768a.384.384,0,0,0,.566.328,14.819,14.819,0,0,1,5.314-1.14.758.758,0,0,0,.729-.745V6.034a.762.762,0,0,0-.821-.746Z" fill="#fff"/>
                               </svg>
                               
                               
                         </span>
-                        <span class="me-1 favoret" @click="addToFavorite(newsDt.uuid)">
+                        <span class="me-1 favoret favoret-icon" :class="newsDt.is_fovarite == true? 'no' : 'yes'" @click="addToFavorite(newsDt.uuid)">
                             <svg xmlns="http://www.w3.org/2000/svg" width="14.731" height="14.099" viewBox="0 0 14.731 14.099">
                                 <path id="Icon_awesome-star" data-name="Icon awesome-star" d="M7.376.49l-1.8,3.645-4.023.586a.882.882,0,0,0-.487,1.5l2.91,2.836L3.29,13.067A.881.881,0,0,0,4.567,14l3.6-1.892L11.765,14a.881.881,0,0,0,1.278-.928l-.688-4.006,2.91-2.836a.882.882,0,0,0-.487-1.5l-4.023-.586L8.956.49A.882.882,0,0,0,7.376.49Z" transform="translate(-0.801 0)" fill="#fff"/>
                               </svg>
@@ -66,7 +66,10 @@
         </div>
         <div class="content-dt">
           {{newsDt.description}} 
-            
+            <div class="mt-4">
+                <a :href="newsDt.item_id"  class="btn btn-success py-1">رابط المصدر</a>
+                
+            </div>
         </div>
     </div>
         </div>
@@ -114,6 +117,7 @@ export default {
             haveToken : this.$store.state.token ,
             channel : '',
             channels_news:[],
+            postId: this.$route.params.id , 
         }
     },
  created(){
@@ -161,6 +165,7 @@ export default {
       .then(res => {
     //  console.log(res.data.message);
       toaster.success(res.data.message);
+      this.getPostData(this.postId);
       }).catch(function(error){
             console.log(error.res)
       })

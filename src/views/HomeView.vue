@@ -22,12 +22,7 @@
                         <div class="content-news-slider">
                             <div class="date-cat-top">
                                 <span class="date-slide d-inline-flex align-items-center">
-                                    <span v-if="!news.is_fovarite" :class="news.is_fovarite == ture ? 'fovariteTrue' : '' " class="mx-1 favoret" @click="addToFavorite(news.uuid)">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14.731" height="14.099" viewBox="0 0 14.731 14.099">
-                                            <path id="Icon_awesome-star" data-name="Icon awesome-star" d="M7.376.49l-1.8,3.645-4.023.586a.882.882,0,0,0-.487,1.5l2.91,2.836L3.29,13.067A.881.881,0,0,0,4.567,14l3.6-1.892L11.765,14a.881.881,0,0,0,1.278-.928l-.688-4.006,2.91-2.836a.882.882,0,0,0-.487-1.5l-4.023-.586L8.956.49A.882.882,0,0,0,7.376.49Z" transform="translate(-0.801 0)" fill="#fff"/>
-                                          </svg>
-                                          
-                                    </span>
+                             
                                     <span class="mx-1 chanel">
                                         <span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
                                             <g id="Group_39" data-name="Group 39" transform="translate(-1081 -293)">
@@ -39,7 +34,7 @@
                                             </g>
                                           </svg>
                                           </span>
-                                          <span to="'catogory/'">{{news.category_data.name}}</span>
+                                          <span >{{news.category_data.name}}</span>
                                     </span>
                                     </span>
                                 </div>
@@ -137,7 +132,7 @@
         
      </div>
 <div v-if="haveToken != null">
-<div class="head-content px-3 pt-0 bg-light" >
+<div class="head-content px-3 pt-0 bg-dark" >
     <div class="row justify-content-between align-items-center  py-3 w-100">
         <div class="col-auto">
             <ul class="nav nav-pills">
@@ -148,7 +143,7 @@
               </ul>
         </div>
         <div class="col-auto">
-            <ul class="list-feltar">
+            <ul class="list-feltar d-md-flex d-none">
                 <li @click="updateshow('list-text')"><a ><svg xmlns="http://www.w3.org/2000/svg" width="10.645" height="10.938" viewBox="0 0 10.645 10.938">
                     <g id="Icon_ionic-ios-list" data-name="Icon ionic-ios-list" transform="translate(-6.855 -4.531)">
                       <path id="Path_5" data-name="Path 5" d="M16.875,9.375H7.48a.625.625,0,0,0,0,1.25h9.395a.625.625,0,0,0,0-1.25Z" fill="#6a6a6a"/>
@@ -193,12 +188,7 @@
                         <div class="content-news-slider">
                             <div class="date-cat-top">
                                 <span class="date-slide d-inline-flex align-items-center">
-                                    <span v-if="!news.is_fovarite" :class="news.is_fovarite == ture ? 'fovariteTrue' : '' " class="mx-1 favoret" @click="addToFavorite(news.uuid)">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14.731" height="14.099" viewBox="0 0 14.731 14.099">
-                                            <path id="Icon_awesome-star" data-name="Icon awesome-star" d="M7.376.49l-1.8,3.645-4.023.586a.882.882,0,0,0-.487,1.5l2.91,2.836L3.29,13.067A.881.881,0,0,0,4.567,14l3.6-1.892L11.765,14a.881.881,0,0,0,1.278-.928l-.688-4.006,2.91-2.836a.882.882,0,0,0-.487-1.5l-4.023-.586L8.956.49A.882.882,0,0,0,7.376.49Z" transform="translate(-0.801 0)" fill="#fff"/>
-                                          </svg>
-                                          
-                                    </span>
+                              
                                     <span class="mx-1 chanel">
                                         <span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
                                             <g id="Group_39" data-name="Group 39" transform="translate(-1081 -293)">
@@ -246,12 +236,7 @@
                             <div class="content-news-slider">
                                 <div class="date-cat-top">
                                     <span class="date-slide d-inline-flex align-items-center">
-                                           <span v-if="!news.is_fovarite" :class="news.is_fovarite == ture ? 'fovariteTrue' : '' " class="mx-1 favoret" @click="addToFavorite(news.uuid)">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14.731" height="14.099" viewBox="0 0 14.731 14.099">
-                                            <path id="Icon_awesome-star" data-name="Icon awesome-star" d="M7.376.49l-1.8,3.645-4.023.586a.882.882,0,0,0-.487,1.5l2.91,2.836L3.29,13.067A.881.881,0,0,0,4.567,14l3.6-1.892L11.765,14a.881.881,0,0,0,1.278-.928l-.688-4.006,2.91-2.836a.882.882,0,0,0-.487-1.5l-4.023-.586L8.956.49A.882.882,0,0,0,7.376.49Z" transform="translate(-0.801 0)" fill="#fff"/>
-                                          </svg>
-                                          
-                                    </span>
+                                  
                                         <span class="mx-1 chanel">
                                             <span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
                                                 <g id="Group_39" data-name="Group 39" transform="translate(-1081 -293)">
@@ -263,7 +248,7 @@
                                                 </g>
                                               </svg>
                                               </span>
-                                              <span>الجزيرة</span>
+                                              <span >{{news.category_data.name}}</span>
                                         </span>
                                         </span>
                                     </div>
@@ -300,12 +285,7 @@
                                 <div class="some-text fs-13"> {{news.content}}</div>
                                 <div class="date-cat-top mt-2">
                                     <span class="date-slide d-inline-flex align-items-center">
-                                        <span v-if="!news.is_fovarite" :class="news.is_fovarite == ture ? 'fovariteTrue' : '' " class="mx-1 favoret" @click="addToFavorite(news.uuid)">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="14.731" height="14.099" viewBox="0 0 14.731 14.099">
-                                            <path id="Icon_awesome-star" data-name="Icon awesome-star" d="M7.376.49l-1.8,3.645-4.023.586a.882.882,0,0,0-.487,1.5l2.91,2.836L3.29,13.067A.881.881,0,0,0,4.567,14l3.6-1.892L11.765,14a.881.881,0,0,0,1.278-.928l-.688-4.006,2.91-2.836a.882.882,0,0,0-.487-1.5l-4.023-.586L8.956.49A.882.882,0,0,0,7.376.49Z" transform="translate(-0.801 0)" fill="#fff"/>
-                                          </svg>
-                                          
-                                    </span>
+                                     
                                         <span class="mx-e chanel">
                                             <span><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 20 20">
                                                 <g id="Group_39" data-name="Group 39" transform="translate(-1081 -293)">
@@ -317,7 +297,7 @@
                                                 </g>
                                               </svg>
                                               </span>
-                                              <span>الجزيرة</span>
+                                               <span >{{news.category_data.name}}</span>
                                         </span>
                                         </span>
                                     </div>
